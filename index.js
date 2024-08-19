@@ -24,9 +24,10 @@ app.get("/", function (req, res) {
 //   res.json({ greeting: 'hello API' });
 // });
 
-app.get("/api/:date_string", (req, res) => {
+app.get("/api/:date_string?", (req, res) => {
   let dateString = req.params.date_string || Date.now();
-  let date = new Date(dateString);
+  const dateFormat = !isNaN(Number(dateString)) ? Number(dateString) : dateString;
+  let date = new Date(dateFormat);
   if (date.toString() === "Invalid Date") {
     res.json({ error: "Invalid Date" });
   } else {
